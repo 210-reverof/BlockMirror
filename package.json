@@ -4,12 +4,15 @@
   "description": "A dual block/text editor using Blockly and CodeMirror for Python",
   "main": "webpack.config.js",
   "directories": {
-    "example": "example"
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
   },
   "scripts": {
     "build": "webpack --mode production",
     "devbuild": "webpack --mode development",
-    "watch": "webpack --watch --mode development"
+    "watch": "webpack --watch --mode development",
+    "devserver": "webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
