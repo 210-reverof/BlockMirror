@@ -63,8 +63,9 @@
     <div id="blockmirror-editor"></div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
+    var code = "";
     var editor = new BlockMirror({
         'container': document.getElementById('blockmirror-editor'),
         blocklyMediaPath: '../lib/blockly/media/',
@@ -78,10 +79,10 @@
         imageLiteralHook: (oldUrl) => {
             return `Image("${oldUrl}")`;
         },
-        //'height': '2000px'
     });
     editor.addChangeListener(function (event) {
-        console.log('Change! Better save:', event)
+        //console.log('Change! Better save:', event)
+        code = event["value"];
     });
     editor.setCode('class X:\n    """Hello world"""\n    def add(self, a, b):\n        a = 0\n        return a\n\nx = X()\nx.add(5,3)');
 
@@ -108,7 +109,28 @@
         Sk.importMainWithBody(filename, false, code, true).$d;
         //console.timeEnd('Run');
         alert('Done!')*/
-        runTests();
+        // runTests();
+        let data = JSON.stringify({
+        "cmd": code
+        });
+
+        let config = {
+        method: 'post',
+        url: 'http://wonyoung210.p-e.kr:5000/',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
+
+        axios.request(config)
+        .then((response) => {
+        console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+        console.log(error);
+        });
+
     });
 
     var TESTS = [
